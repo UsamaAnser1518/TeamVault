@@ -9,7 +9,6 @@ class Users::OmniauthCallbacksController < Devise::OmniauthCallbacksController
   # end
 
   def google_oauth2
-    binding.break
     user = User.from_omniauth(auth)
 
     if user.present?
