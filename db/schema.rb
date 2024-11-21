@@ -22,6 +22,10 @@ ActiveRecord::Schema[7.2].define(version: 2024_11_20_205132) do
     t.date "date_of_joining"
     t.string "phone", default: "", null: false
     t.integer "emp_id", default: 0, null: false
+    t.string "full_name"
+    t.string "uid"
+    t.string "avatar_url"
+    t.string "provider"
     t.string "reset_password_token"
     t.datetime "reset_password_sent_at"
     t.datetime "remember_created_at"
