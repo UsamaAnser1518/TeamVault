@@ -16,6 +16,8 @@ class DeviseCreateUsers < ActiveRecord::Migration[7.2]
       t.string :uid
       t.string :avatar_url
       t.string :provider
+      t.integer :total_fund_paid, null: false, default: 0
+      t.integer :total_fund_due, null: false, default: 0
 
       ## Recoverable
       t.string   :reset_password_token

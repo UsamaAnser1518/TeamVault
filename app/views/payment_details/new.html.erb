@@ -1,0 +1,23 @@
+<h1>Create Payment Detail</h1>
+
+<%= form_with model: @payment_detail, local: true do |form| %>
+  <% if @payment_detail.errors.any? %>
+    <div id="error_explanation">
+      <h2><%= pluralize(@payment_detail.errors.count, "error") %> prohibited this payment detail from being saved:</h2>
+      <ul>
+        <% @payment_detail.errors.full_messages.each do |message| %>
+          <li><%= message %></li>
+        <% end %>
+      </ul>
+    </div>
+  <% end %>
+
+  <div class="field">
+    <%= form.label :amount_paid %>
+    <%= form.number_field :amount_paid, step: "0.01", min: 0, required: true %>
+  </div>
+
+  <div class="actions">
+    <%= form.submit "Create Payment Detail" %>
+  </div>
+<% end %>

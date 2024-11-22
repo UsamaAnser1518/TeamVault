@@ -1,55 +1,46 @@
-<div class="container mx-auto p-6">
+<%= link_to 'Pay Now', new_payment_detail_path, class: "text-white bg-gradient-to-r from-blue-500 via-blue-600 to-blue-700 hover:bg-gradient-to-br focus:ring-4 focus:outline-none focus:ring-blue-300 dark:focus:ring-blue-800 shadow-lg shadow-blue-500/50 dark:shadow-lg dark:shadow-blue-800/80 font-medium rounded-lg text-sm px-5 py-2.5 text-center me-2 mb-2" %>
+<div class=" mt-5">
   <!-- Header Cards -->
   <div class="grid grid-cols-1 md:grid-cols-4 gap-6 mb-6">
     <!-- Total Due Card -->
     <div class="bg-red-100 border border-red-300 rounded-lg shadow-md p-4 text-center">
       <h3 class="text-lg font-semibold text-red-800">Total Due</h3>
-      <p class="text-2xl font-bold text-red-900">Rs <%= @total_due %></p>
+      <p class="text-2xl font-bold text-red-900">Rs <%= current_user.total_fund_due || 0 %></p>
     </div>
     <!-- Total Paid Card -->
     <div class="bg-green-100 border border-green-300 rounded-lg shadow-md p-4 text-center">
       <h3 class="text-lg font-semibold text-green-800">Total Paid</h3>
-      <p class="text-2xl font-bold text-green-900">Rs <%= @total_paid %></p>
+      <p class="text-2xl font-bold text-green-900">Rs <%= current_user.total_fund_paid || 0 %></p>
     </div>
-    <!-- Month Due Card -->
-    <div class="bg-yellow-100 border border-yellow-300 rounded-lg shadow-md p-4 text-center">
-      <h3 class="text-lg font-semibold text-yellow-800">Month Due</h3>
-      <p class="text-2xl font-bold text-yellow-900">Rs <%= @month_due %></p>
-    </div>
-    <!-- Month Paid Card -->
+
+    <!-- Team Fund Status Card -->
     <div class="bg-blue-100 border border-blue-300 rounded-lg shadow-md p-4 text-center">
-      <h3 class="text-lg font-semibold text-blue-800">Month Paid</h3>
-      <p class="text-2xl font-bold text-blue-900">Rs <%= @month_paid %></p>
+      <h3 class="text-lg font-semibold text-blue-800">Team Fund Status</h3>
+      <p class="text-2xl font-bold text-blue-900"><%= (current_user.total_fund_due <= 0) ? 'Paid' : 'Pending' %></p>
     </div>
   </div>
 
   <!-- Payments Table -->
+  <% unless current_user.total_fund_paid <= 0 %>
   <div class="bg-white shadow-md rounded-lg p-4 overflow-x-auto">
     <table class="table-auto w-full border-collapse border border-gray-200">
       <thead>
         <tr class="bg-gray-100 border-b border-gray-300">
           <th class="px-4 py-2 text-left font-medium text-gray-700">Month</th>
           <th class="px-4 py-2 text-left font-medium text-gray-700">Amount Paid</th>
-          <th class="px-4 py-2 text-left font-medium text-gray-700">Amount Due</th>
-          <th class="px-4 py-2 text-left font-medium text-gray-700">Status</th>
         </tr>
       </thead>
       <tbody>
         <% @monthly_payments.each do |month, details| %>
           <tr class="<%= cycle('bg-white', 'bg-gray-50') %> border-b border-gray-200">
             <td class="px-4 py-2 text-gray-800"><%= month %></td>
-            <td class="px-4 py-2 text-gray-800">$<%= details[:paid] %></td>
-            <td class="px-4 py-2 text-gray-800">$<%= details[:due] %></td>
-            <td class="px-4 py-2 text-gray-800">
-              <% if details[:due].zero? %>
-                <span class="bg-green-100 text-green-800 text-sm font-semibold px-2 py-1 rounded">Paid</span>
-              <% else %>
-                <span class="bg-red-100 text-red-800 text-sm font-semibold px-2 py-1 rounded">Pending</span>
-              <% end %>
-            </td>
+            <td class="px-4 py-2 text-gray-800">Rs <%= details[:paid] %></td>
           </tr>
         <% end %>
       </tbody>
     </table>
   </div>
+  <% end %>
+
+  <%= %>
 </div>

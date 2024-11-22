@@ -15,10 +15,7 @@ ActiveRecord::Schema[7.2].define(version: 2024_11_21_191214) do
   enable_extension "plpgsql"
 
   create_table "payment_details", force: :cascade do |t|
-    t.integer "amount_due", null: false
-    t.integer "amount_paid", null: false
-    t.date "submission_date", null: false
-    t.string "submission_month", null: false
+    t.integer "amount_paid", default: 0, null: false
     t.integer "status", default: 0, null: false
     t.bigint "user_id"
     t.datetime "created_at", null: false
@@ -39,6 +36,8 @@ ActiveRecord::Schema[7.2].define(version: 2024_11_21_191214) do
     t.string "uid"
     t.string "avatar_url"
     t.string "provider"
+    t.integer "total_fund_paid", default: 0, null: false
+    t.integer "total_fund_due", default: 0, null: false
     t.string "reset_password_token"
     t.datetime "reset_password_sent_at"
     t.datetime "remember_created_at"
