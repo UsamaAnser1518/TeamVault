@@ -11,6 +11,7 @@ class DeviseCreateUsers < ActiveRecord::Migration[7.2]
       t.date :date_of_joining
       t.string :phone, null: false, default: ""
       t.integer :emp_id, null: false, default: 0
+      t.integer :role, null: false, default: 0
       t.string :full_name
       t.string :uid
       t.string :avatar_url
